@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<head>
+{% extends 'lms/lms_base.html' %}
+{% load crispy_forms_tags %}
+
+    <script type="text/javascript">
+        function check_field_value() {
+            if($(this).val() == 'no submission') {
+                $('id_onlineoptions').hide();
+            } else {
+                $('id_onlineoptions').show();
+            }
+        }
+
+        $(document).ready(function() {
+            // set things up so my function will be called when field_three changes
+            //$('id_sub_type').change(check_field_value);
+            $('id_sub_type').click(function(){
+            console.log("inside change")
+            });
+            check_field_value.call($('id_sub_type').get(0));
+        });
+    </script>
+</head>
+{% block content %}
+
+    <h1 class="text-center">Create Assignment</h1>
+
+    <div class=""content-section>
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class ="border-bottom mb-2">Assignment</legend>
+                {{ form.media}}
+                <table>
+                    {{ form.as_table}}
+                </table>
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-secondary">Create Assignment</button>
+            </div>
+        </form>
+    </div>
+
+{% endblock content %}
